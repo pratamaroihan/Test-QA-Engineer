@@ -1,0 +1,48 @@
+<?php
+// Contoh data order
+$orders = [
+    [
+        'order_id' => 123456,
+        'status_order' => 'Belum dibayar',  // status order
+        'jenis_pembayaran' => 'ShopeePay',
+        'status_pembayaran' => 'Gagal-bayar',  // status pembayaran
+    ],
+    [
+        'order_id' => 789012,
+        'status_order' => 'Sudah dibayar',
+        'jenis_pembayaran' => 'Transfer Bank',
+        'status_pembayaran' => 'Berhasil-bayar',
+    ],
+    [
+        'order_id' => 345678,
+        'status_order' => 'Belum dibayar',
+        'jenis_pembayaran' => 'Kartu Kredit',
+        'status_pembayaran' => '',
+    ]
+];
+
+// Fungsi untuk mengecek apakah tombol 'Ubah Pembayaran' muncul
+function cekTombolUbahPembayaran($order) {
+    // Syarat munculnya tombol
+    if ($order['status_order'] === 'Belum dibayar' || $order['status_pembayaran'] === 'Gagal-bayar') {
+        return true; // Tombol muncul
+    }
+    return false; // Tombol tidak muncul
+}
+
+// Iterasi setiap order dan tampilkan hasil
+foreach ($orders as $order) {
+    echo "Order ID: " . $order['order_id'] . "<br>";
+    echo "Status Order: " . $order['status_order'] . "<br>";
+    echo "Jenis Pembayaran: " . $order['jenis_pembayaran'] . "<br>";
+    echo "Status Pembayaran: " . ($order['status_pembayaran'] ?: 'Tidak ada status') . "<br>";
+
+    if (cekTombolUbahPembayaran($order)) {
+        echo "<strong>Tombol 'Ubah Pembayaran' Muncul</strong><br>";
+    } else {
+        echo "<strong>Tombol 'Ubah Pembayaran' Tidak Muncul</strong><br>";
+    }
+    
+    echo "<br>";
+}
+?>
